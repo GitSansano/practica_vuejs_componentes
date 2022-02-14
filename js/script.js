@@ -38,15 +38,28 @@ var server_data = {
     }
 };
 
+var arrayEditar=[]; // Array para controlar por cada card qué componente renderizar
 
 // TODO: Componente edit-form
 Vue.component('edit-form', {
-
+    template: '#editForm',
+    props: ['pelicula','indice'],
+    methods: {
+        closeForm: function(indice){
+            arrayEditar.splice(arrayEditar.indexOf(indice),1);
+        }
+    }
 })
 
 // TODO: Componente item-data
 Vue.component('item-data', {
-
+    template: '#itemData',
+    props: ["pelicula", "indice"],
+    methods: {
+        toggleEditFormVisibility: function(indice){
+            arrayEditar.push(indice);
+        }
+    }
 })
 
 // Aplicación VueJS
@@ -54,7 +67,7 @@ Vue.component('item-data', {
 var app = new Vue({
     el: '#app',
     data: {
-        col: server_data
+        col: server_data,
+        arrayEditar:this.arrayEditar
     }
 });
-
